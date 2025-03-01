@@ -1,30 +1,29 @@
 extends CharacterBody2D
 
+@export var friction: float
 @export var direction: Vector2
 @export var value: int = 1
-@export var SPEED: int = 300
-
+@export var SPEED: int = 3
 func _ready() -> void:
-	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
-
+	#direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
+	
+	direction = Vector2.ZERO
 func _physics_process(delta: float) -> void:
 	if is_on_wall():
 		direction.x = direction.x * -1
 	if is_on_floor() || is_on_ceiling():
 		direction.y = direction.y * -1
 
-	if Input.is_action_just_pressed("ui_down"):
-		shake()
 
 
-	direction = direction.normalized()
+
 	velocity.x = direction.x * SPEED
 	velocity.y = direction.y * SPEED
 	move_and_slide()
-	
-	
-func shake():
-	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
+	#friction
+	direction.x = direction.x * friction
+	direction.y = direction.y * friction
+
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	# Get the parent of the Area2D, which should be the other CharacterBody2D

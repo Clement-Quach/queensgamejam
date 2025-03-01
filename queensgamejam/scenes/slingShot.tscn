@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsely15cvyl4n"]
+
+[ext_resource type="Script" path="res://slingshot.gd" id="1_l50s0"]
+
+[node name="Line2D" type="Line2D"]
+points = PackedVector2Array(0, 0, 0, 0)
+script = ExtResource("1_l50s0")
