@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1r181tlg2520"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_2h8js"]
+[ext_resource type="Script" path="res://scenes/timer.gd" id="1_nw5uv"]
+[ext_resource type="PackedScene" uid="uid://w3uygut4yruj" path="res://scenes/player.tscn" id="2_f2vdu"]
+[ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="3_y7k7s"]
+[ext_resource type="PackedScene" uid="uid://drwoipyt7482k" path="res://scenes/slingShot.tscn" id="4_o7whv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1401g"]
+font_size = 20
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_2h8js")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -49.0
+offset_top = -49.0
+offset_right = 1039.0
+offset_bottom = 620.0
+color = Color(0, 0, 0, 1)
+
+[node name="timer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nw5uv")
+
+[node name="Label" type="Label" parent="timer"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 849.0
+offset_right = 896.0
+offset_bottom = 40.0
+label_settings = SubResource("LabelSettings_1401g")
+
+[node name="Timer" type="Timer" parent="timer"]
+autostart = true
+
+[node name="player" parent="." instance=ExtResource("2_f2vdu")]
+position = Vector2(454.5, 255.5)
+scale = Vector2(0.25, 0.25)
+friction = 0.995
+SPEED = 1
+
+[node name="Line2D" parent="." instance=ExtResource("4_o7whv")]
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("3_y7k7s")]
+position = Vector2(972, 298)
+scale = Vector2(1, 10)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("3_y7k7s")]
+position = Vector2(-58, 308)
+scale = Vector2(1, 10)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("3_y7k7s")]
+position = Vector2(447, 574)
+scale = Vector2(10, 1)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("3_y7k7s")]
+position = Vector2(454, -63)
+scale = Vector2(10, 1)
+
+[node name="level" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="level"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="timeout" from="timer/Timer" to="timer" method="_on_timer_timeout"]

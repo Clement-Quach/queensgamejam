@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://1tnjyuak5eud"]
+
+[ext_resource type="Texture2D" uid="uid://di8prxfe20s2i" path="res://assets/beryllium.png" id="1_fk8fy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l0mka"]
+size = Vector2(36, 36)
+
+[node name="levelUpOrb" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(7, 7)
+texture = ExtResource("1_fk8fy")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_l0mka")
