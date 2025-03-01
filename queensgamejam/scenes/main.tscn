@@ -40,8 +40,6 @@ autostart = true
 [node name="player" parent="." instance=ExtResource("2_f2vdu")]
 position = Vector2(454.5, 255.5)
 scale = Vector2(0.25, 0.25)
-friction = 0.995
-SPEED = 1
 
 [node name="Line2D" parent="." instance=ExtResource("4_o7whv")]
 
