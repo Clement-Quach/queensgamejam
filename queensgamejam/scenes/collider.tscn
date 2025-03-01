@@ -2,29 +2,25 @@
 
 [ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="1_704lm"]
 [ext_resource type="PackedScene" uid="uid://bqljjh47t4yin" path="res://scenes/hydrogen.tscn" id="2_1udnh"]
-[ext_resource type="PackedScene" uid="uid://dsely15cvyl4n" path="res://scenes/slingShot.tscn" id="3_qhxu8"]
+[ext_resource type="PackedScene" path="res://scenes/slingShot.tscn" id="3_qhxu8"]
 
 [node name="Collider" type="Node2D"]
 
 [node name="StaticBody2D4" parent="." instance=ExtResource("1_704lm")]
-visible = false
-position = Vector2(1218, 68066)
-scale = Vector2(1, 40000)
+position = Vector2(8985, 576)
+scale = Vector2(400, 1)
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("1_704lm")]
-visible = false
-position = Vector2(3455, 725)
-scale = Vector2(40000, 1)
-
-[node name="StaticBody2D" parent="." instance=ExtResource("1_704lm")]
-visible = false
-position = Vector2(36, -61)
-scale = Vector2(200, 1)
+position = Vector2(425, -68)
+scale = Vector2(20, 1)
 
 [node name="StaticBody2D2" parent="." instance=ExtResource("1_704lm")]
-visible = false
-position = Vector2(-78, 330)
-scale = Vector2(1, 200)
+position = Vector2(973, 2739)
+scale = Vector2(1, 100)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("1_704lm")]
+position = Vector2(-62, 242)
+scale = Vector2(1, 10)
 
 [node name="player" parent="." instance=ExtResource("2_1udnh")]
 position = Vector2(201, 485)
