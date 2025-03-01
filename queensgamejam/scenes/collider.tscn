@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://csv4n66ympl5b"]
+
+[ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="1_704lm"]
+[ext_resource type="PackedScene" uid="uid://bqljjh47t4yin" path="res://scenes/hydrogen.tscn" id="2_1udnh"]
+
+[node name="Collider" type="Node2D"]
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("1_704lm")]
+visible = false
+position = Vector2(1218, 68066)
+scale = Vector2(1, 40000)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("1_704lm")]
+visible = false
+position = Vector2(3455, 725)
+scale = Vector2(40000, 1)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("1_704lm")]
+visible = false
+position = Vector2(36, -61)
+scale = Vector2(200, 1)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("1_704lm")]
+visible = false
+position = Vector2(-78, 330)
+scale = Vector2(1, 200)
+
+[node name="hydrogen" parent="." instance=ExtResource("2_1udnh")]
+position = Vector2(753, 306)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_1udnh")]
+position = Vector2(766, 95)
