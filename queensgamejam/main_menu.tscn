@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpwixp5mlyh5j"]
+[gd_scene load_steps=3 format=3 uid="uid://dh1doi0wkdt87"]
 
 [ext_resource type="Texture2D" uid="uid://bic0dpuaml4ul" path="res://assets/menu.png" id="1_x5hkw"]
 [ext_resource type="Script" path="res://main_menu.gd" id="1_youtg"]
@@ -22,6 +22,7 @@ texture = ExtResource("1_x5hkw")
 
 [node name="play" type="Button" parent="."]
 show_behind_parent = true
+layout_mode = 0
 offset_left = 306.0
 offset_top = 225.0
 offset_right = 604.0

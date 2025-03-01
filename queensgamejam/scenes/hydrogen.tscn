@@ -1,17 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqljjh47t4yin"]
+[gd_scene load_steps=4 format=3 uid="uid://bqljjh47t4yin"]
 
 [ext_resource type="PackedScene" uid="uid://cmso3pdtylk4n" path="res://scenes/particleBase.tscn" id="1_3clr7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2fi7n"]
-size = Vector2(18, 18)
+[sub_resource type="CircleShape2D" id="CircleShape2D_vs0lb"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t72k3"]
 
 [node name="CharacterBody2D" instance=ExtResource("1_3clr7")]
-SPEED = 2
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_vs0lb")
 
 [node name="Sprite2D" parent="." index="1"]
 scale = Vector2(0.15, 0.15)
 
 [node name="CollisionShape2D" parent="." index="2"]
-shape = SubResource("RectangleShape2D_2fi7n")
+position = Vector2(-0.5, 0)
+shape = SubResource("CircleShape2D_t72k3")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]

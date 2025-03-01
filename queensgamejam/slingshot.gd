@@ -1,5 +1,5 @@
 extends Line2D
-
+@export var max = 100
 
 # Called when the node enters the scene tree for the first time.
 #might need to change this to an on ready function
@@ -22,7 +22,16 @@ func _input(_event: InputEvent) -> void:
 		points[1] = vecEnd
 	if Input.is_action_just_released("click"):
 		visible = false;
-		player.direction = ((vecStart  - vecEnd))
+		var dir = vecStart - vecEnd
+		if dir.x < 0 :
+			dir.x = max(-1*max,dir.x)
+		if dir.x >= 0 :
+			dir.x = min(max,dir.x)
+		if dir.y < 0 :
+			dir.y = max(-1*max,dir.y)
+		if dir.y >= 0 :
+			dir.y = min(max,dir.y)
+		player.direction = dir
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
