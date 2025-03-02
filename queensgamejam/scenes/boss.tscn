@@ -1,16 +1,60 @@
-[gd_scene load_steps=6 format=3 uid="uid://beq6j6jklgijo"]
+[gd_scene load_steps=11 format=3 uid="uid://beq6j6jklgijo"]
 
 [ext_resource type="Script" path="res://scenes/boss.gd" id="1_dua5e"]
 [ext_resource type="PackedScene" uid="uid://bqvb7ajjjro68" path="res://scenes/projectile.tscn" id="2_5hyw2"]
+[ext_resource type="Shader" uid="uid://bwqdkudlathsu" path="res://scenes/boss1flash.tres" id="3_20deb"]
 [ext_resource type="Texture2D" uid="uid://tentn8g1klot" path="res://assets/uranium.png" id="3_l4ob5"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bigey"]
+resource_local_to_scene = true
+shader = ExtResource("3_20deb")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hnhtb"]
-radius = 49.0
-height = 135.5
+radius = 61.0
+height = 143.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uhggu"]
 radius = 47.0
-height = 154.0
+height = 124.0
+
+[sub_resource type="Animation" id="Animation_1c3tb"]
+resource_name = "hitFlash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_4xk3g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5vi5w"]
+_data = {
+"RESET": SubResource("Animation_4xk3g"),
+"hitFlash": SubResource("Animation_1c3tb")
+}
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_dua5e")
@@ -19,6 +63,7 @@ spawn_scene = ExtResource("2_5hyw2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_bigey")
 scale = Vector2(18, 18)
 texture = ExtResource("3_l4ob5")
 
@@ -43,5 +88,10 @@ wait_time = 12.0
 
 [node name="coolDownPeriod" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="hitFlash" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5vi5w")
+}
 
 [connection signal="area_entered" from="hurtBox" to="." method="_on_hurt_box_area_entered"]

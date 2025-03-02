@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var spawn_scene: PackedScene  # Assign the scene you want to spawn in the Inspector
 @export var player:CharacterBody2D
 @export var cooldown:bool
+@onready var hitFlash = $hitFlash
 
 func _ready() -> void:
 	# Example: Spawn every 3 seconds
@@ -52,6 +53,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if parent is CharacterBody2D and parent.has_method("getMass"):
 		health -= parent.getMass()
 		print(health)
+		hitFlash.play("hitFlash")
 		
 
 func spawn_character(dir:Vector2, location:Vector2, speed:float) -> void:
