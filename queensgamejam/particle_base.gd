@@ -4,6 +4,8 @@ extends CharacterBody2D
 @export var direction: Vector2
 @export var mass: int = 1
 @export var SPEED: float = 3
+var augment1 = false
+var augment2 = false
 func _ready() -> void:
 	#direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
 	direction = Vector2.ZERO
@@ -12,15 +14,31 @@ func _physics_process(delta: float) -> void:
 		direction.x = direction.x * -1
 	if is_on_floor() || is_on_ceiling():
 		direction.y = direction.y * -1
-
-
-
 	velocity.x = direction.x * SPEED
 	velocity.y = direction.y * SPEED
 	move_and_slide()
 	#friction
 	direction.x = direction.x * friction
 	direction.y = direction.y * friction
+	if augment1 == true:
+		print(SPEED, "\n",get_node("leveling").shieldCount)
+		var count = get_node("leveling").shieldCount
+		SPEED =log(count)/log(10) + 3
+	if augment2== true:
+		friction = .99
+		if Input.is_action_pressed("move_up"):
+			direction.y -= SPEED
+		if Input.is_action_pressed("move_down"):
+			direction.y += SPEED
+		if Input.is_action_pressed("move_left"):
+			direction.x -= SPEED
+		if Input.is_action_pressed("move_right"):
+			direction.x += SPEED
+			
+		
+
+
+
 
 func getMass() -> int:
 	return mass

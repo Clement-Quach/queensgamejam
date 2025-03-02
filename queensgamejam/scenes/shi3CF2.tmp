@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwy5xcmfu3d4d"]
+
+[ext_resource type="Texture2D" uid="uid://cfsn4q5ydiykh" path="res://icon.svg" id="1_b0agd"]
+[ext_resource type="Script" path="res://scenes/shield.gd" id="2_k0imo"]
+
+[node name="Shield" type="Node2D"]
+script = ExtResource("2_k0imo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4375, 0.4375)
+texture = ExtResource("1_b0agd")

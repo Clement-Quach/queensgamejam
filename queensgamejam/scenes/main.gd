@@ -59,6 +59,10 @@ func spawn_waves() -> void:
 		if current_wave % 2 == 0:
 			current_enemy_count += enemy_wave_increment
 
+
+
+############################### ENEMY SPAWNING #####################################################
+
 func start_waves() -> void:
 	# Use an infinite loop to continuously spawn waves
 	spawn_waves()

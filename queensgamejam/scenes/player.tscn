@@ -17,18 +17,15 @@ size = Vector2(52, 52)
 
 [node name="player" instance=ExtResource("1_mfwgv")]
 
-[node name="Area2D" parent="." index="0"]
-collision_layer = 65
-
 [node name="Sprite2D" parent="." index="1"]
 texture_filter = 1
 scale = Vector2(7, 7)
 texture = ExtResource("2_txi7q")
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("RectangleShape2D_gmkwf")
 
-[node name="leveling" type="Node2D" parent="." index="3"]
+[node name="leveling" type="Node2D" parent="." index="4"]
 script = ExtResource("2_dpaba")
 
 [node name="pickup area" type="Area2D" parent="leveling" index="0"]
@@ -46,7 +43,7 @@ stream = ExtResource("4_l0ram")
 stream = ExtResource("5_7kc0m")
 volume_db = -8.83
 
-[node name="hurtbox" parent="." index="4"]
+[node name="hurtbox" parent="." index="5"]
 collision_layer = 0
 collision_mask = 4
 
