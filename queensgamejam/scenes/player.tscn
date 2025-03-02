@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://w3uygut4yruj"]
+[gd_scene load_steps=7 format=3 uid="uid://w3uygut4yruj"]
 
 [ext_resource type="PackedScene" uid="uid://cmso3pdtylk4n" path="res://scenes/particleBase.tscn" id="1_mfwgv"]
 [ext_resource type="Script" path="res://scenes/leveling.gd" id="2_dpaba"]
@@ -9,6 +9,9 @@ size = Vector2(52, 50)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_250ny"]
 radius = 37.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlkgd"]
+size = Vector2(52, 52)
 
 [node name="player" instance=ExtResource("1_mfwgv")]
 
@@ -31,4 +34,12 @@ collision_mask = 128
 shape = SubResource("CircleShape2D_250ny")
 debug_color = Color(0.940196, 1.16476e-05, 0.616069, 0.42)
 
+[node name="hurtbox" parent="." index="4"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_hlkgd")
+
 [connection signal="area_entered" from="leveling/pickup area" to="leveling" method="_on_pickup_area_area_entered"]
+[connection signal="area_exited" from="hurtbox" to="." method="_on_hurtbox_area_exited"]

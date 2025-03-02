@@ -46,3 +46,7 @@ func _on_area_2d_area_shape_entered(area_rid: RID, area: Area2D, area_shape_inde
 		await get_tree().create_timer(0).timeout
 		
 		direction = (((mass-otherMass)/(mass+otherMass)) * direction ) + (( 2*otherMass)/(mass+otherMass))*otherDirection
+
+
+func _on_hurtbox_area_exited(area: Area2D) -> void:
+	queue_free()

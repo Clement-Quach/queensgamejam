@@ -22,6 +22,7 @@ texture = ExtResource("2_dpa5o")
 
 [node name="play" type="Button" parent="."]
 show_behind_parent = true
+layout_mode = 0
 offset_left = 306.0
 offset_top = 225.0
 offset_right = 604.0

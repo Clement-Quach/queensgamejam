@@ -31,4 +31,5 @@ click={
 
 [layer_names]
 
+2d_physics/layer_3="enemy"
 2d_physics/layer_8="level up orb"

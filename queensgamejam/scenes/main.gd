@@ -4,6 +4,7 @@ var spawn_interval_min = 2.0
 var spawn_interval_max = 4.0
 @onready var playerLevel = $player/leveling
 @onready var levelLabel = $level/Label
+@onready var levelBar = $level/ProgressBar
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	start_spawning()
@@ -12,8 +13,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	levelLabel.text = str(playerLevel.level)
+	fillBar()
 
-
+func fillBar():
+	levelBar.max_value = playerLevel.toNextLevel
+	levelBar.value = playerLevel.levelPts
+	
 ################################## SPAWNING LEVELING ORBS ##########################################
 func spawnLevelOrb():
 	var s = levelUp.instantiate()
