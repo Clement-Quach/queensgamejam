@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var friction: float = 0.995
+@export var friction: float = 0.98
 @export var direction: Vector2
 @export var mass: int = 1
 @export var SPEED: float = 3

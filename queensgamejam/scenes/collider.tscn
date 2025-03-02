@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://csv4n66ympl5b"]
+[gd_scene load_steps=4 format=3 uid="uid://csv4n66ympl5b"]
 
 [ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="1_704lm"]
 [ext_resource type="PackedScene" uid="uid://bqljjh47t4yin" path="res://scenes/hydrogen.tscn" id="2_1udnh"]
 [ext_resource type="PackedScene" uid="uid://dsely15cvyl4n" path="res://scenes/slingShot.tscn" id="3_qhxu8"]
-[ext_resource type="PackedScene" uid="uid://beq6j6jklgijo" path="res://scenes/boss.tscn" id="5_r7nro"]
 
 [node name="Collider" type="Node2D"]
 
@@ -33,6 +32,3 @@ collision_layer = 1
 mass = 2
 
 [node name="Line2D" parent="." instance=ExtResource("3_qhxu8")]
-
-[node name="boss" parent="." instance=ExtResource("5_r7nro")]
-position = Vector2(429, 72)
