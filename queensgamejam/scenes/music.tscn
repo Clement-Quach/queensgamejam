@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://coecypfcoen2x"]
+
+[ext_resource type="AudioStream" uid="uid://bq14sm2gmv8ao" path="res://assets/chill-beats-185843.mp3" id="1_uce6n"]
+
+[node name="music" type="AudioStreamPlayer"]
+stream = ExtResource("1_uce6n")
+volume_db = -16.901
+autoplay = true
+parameters/looping = true

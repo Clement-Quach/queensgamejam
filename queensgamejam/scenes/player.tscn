@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://w3uygut4yruj"]
+[gd_scene load_steps=9 format=3 uid="uid://w3uygut4yruj"]
 
 [ext_resource type="PackedScene" uid="uid://cmso3pdtylk4n" path="res://scenes/particleBase.tscn" id="1_mfwgv"]
 [ext_resource type="Script" path="res://scenes/leveling.gd" id="2_dpaba"]
 [ext_resource type="Texture2D" uid="uid://d4nek2wcnip5x" path="res://assets/carbon.png" id="2_txi7q"]
+[ext_resource type="AudioStream" uid="uid://dfp2whe5liv8v" path="res://assets/mixkit-game-ball-tap-2073.wav" id="4_l0ram"]
+[ext_resource type="AudioStream" uid="uid://dhdm80n6gm2hl" path="res://assets/mixkit-winning-a-coin-video-game-2069.wav" id="5_7kc0m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmkwf"]
 size = Vector2(52, 50)
@@ -33,6 +35,13 @@ collision_mask = 128
 [node name="CollisionShape2D" type="CollisionShape2D" parent="leveling/pickup area" index="0"]
 shape = SubResource("CircleShape2D_250ny")
 debug_color = Color(0.940196, 1.16476e-05, 0.616069, 0.42)
+
+[node name="collect" type="AudioStreamPlayer" parent="leveling" index="1"]
+stream = ExtResource("4_l0ram")
+
+[node name="level up" type="AudioStreamPlayer" parent="leveling" index="2"]
+stream = ExtResource("5_7kc0m")
+volume_db = -8.83
 
 [node name="hurtbox" parent="." index="4"]
 collision_layer = 0

@@ -12,13 +12,15 @@ func levelUp():
 		level += 1
 		toNextLevel = round(toNextLevel * 1.5)
 		levelPts = 0
-		print("level is currently: " + str(level))
-		print("orbs needed till next level: " + str(toNextLevel))
+		$"level up".play()
 	else:
 		levelPts += 1
-		print(levelPts)
+		$collect.play()
 		
-
+func _exit_tree() -> void:
+	# This code will run before the node is removed.
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	# You can trigger additional logic here.
 
 func _on_pickup_area_area_entered(area: Area2D) -> void:
 	levelUp()
