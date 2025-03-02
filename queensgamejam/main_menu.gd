@@ -11,7 +11,6 @@ func _ready() -> void:
 func _on_play_button_down() -> void:
 	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
-	
 
 
 

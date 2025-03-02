@@ -49,6 +49,7 @@ autostart = true
 [node name="player" parent="." instance=ExtResource("2_f2vdu")]
 position = Vector2(454.5, 255.5)
 scale = Vector2(0.25, 0.25)
+collision_layer = 64
 
 [node name="Line2D" parent="." instance=ExtResource("4_o7whv")]
 
@@ -93,7 +94,10 @@ show_percentage = false
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0ol5u")
 
+[node name="bossTimer2" type="Timer" parent="."]
+wait_time = 120.0
+
 [node name="bossTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 60.0
 
 [connection signal="timeout" from="timer/Timer" to="timer" method="_on_timer_timeout"]

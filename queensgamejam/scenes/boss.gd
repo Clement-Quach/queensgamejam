@@ -9,6 +9,8 @@ extends CharacterBody2D
 @onready var hitFlash = $hitFlash
 @onready var healthLabel = $health/Label
 @onready var healthBar = $health/ProgressBar
+@onready var deathSound = $death
+var dead = false
 
 func _ready() -> void:
 	# Example: Spawn every 3 seconds
@@ -26,13 +28,15 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	healthLabel.text = "uranium 248"
+	healthLabel.text = "URANIUM ISOTOPE 248"
 	fillBar()
 	#on death
-	if health <= 0:
+	if health <= 0 and dead == false:
+		dead = true
+		deathSound.play()
 		for i in 50:
 			spawnLevelOrb()
-		
+		await get_tree().create_timer(0.32).timeout
 		queue_free()
 	
 func lockout() -> void:
@@ -62,6 +66,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if parent is CharacterBody2D and parent.has_method("getMass"):
 		health -= parent.getMass()
 		print(health)
+		$hit.play()
 		hitFlash.play("hitFlash")
 		
 

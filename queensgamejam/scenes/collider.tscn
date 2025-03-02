@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="1_704lm"]
 [ext_resource type="PackedScene" uid="uid://bqljjh47t4yin" path="res://scenes/hydrogen.tscn" id="2_1udnh"]
-[ext_resource type="PackedScene" uid="uid://dsely15cvyl4n" path="res://scenes/slingShot.tscn" id="3_qhxu8"]
+[ext_resource type="PackedScene" uid="uid://drwoipyt7482k" path="res://scenes/slingShot.tscn" id="3_qhxu8"]
 
 [node name="Collider" type="Node2D"]
 

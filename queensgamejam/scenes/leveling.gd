@@ -1,5 +1,8 @@
 extends Node
-
+@onready var parent = get_parent()
+@onready var shieldNode = parent.get_node("shieldContainer")
+var shieldScene = preload("res://scenes/shield.tscn")
+@export var health : int = 0
 var level : int = 1
 var toNextLevel : int = 3
 var levelPts : int = 0
@@ -18,11 +21,17 @@ var totalAugmentNum = 2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-	
+
+func loseHp():
+	if shieldCount <= 0:
+		return  # No shields to remove.
+	health -= 1
+	shieldCount -= 1
+	$loseShell.play()
+	var removed_shield = shield.pop_back()  # This removes and returns the last element.
+	shieldNode.remove_child(removed_shield)
+
 func add_shield():
-	var parent = get_parent()
-	var shieldNode = parent.get_node("shieldContainer")
-	var shieldScene = preload("res://scenes/shield.tscn")
 	var newShield = shieldScene.instantiate()
 	if shieldCount == 0:
 		newShield.angle = 0
@@ -76,6 +85,7 @@ func augment():
 			pickedAugments.append(3)
 func levelUp():
 	level += 1
+	health += 1
 	toNextLevel = round(toNextLevel * 1.5)
 	levelPts = 0
 	add_shield()
@@ -84,13 +94,12 @@ func levelUp():
 		
 	
 func pickUp():
-	levelUp()
-	#if levelPts == toNextLevel:
-		#levelUp()
-		#$"level up".play()
-	#else:
-		#levelPts += 1
-		#$collect.play()
+	if levelPts == toNextLevel:
+		levelUp()
+		$"level up".play()
+	else:
+		levelPts += 1
+		$collect.play()
 		
 func _exit_tree() -> void:
 	# This code will run before the node is removed.
@@ -101,3 +110,12 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 	pickUp()
 	var h = area.get_parent()
 	h.queue_free()
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if health == 0:
+		$dead.play()
+		get_parent().visible = false
+		await get_tree().create_timer(0.4).timeout
+		queue_free()
+	loseHp()

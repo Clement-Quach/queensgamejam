@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqvb7ajjjro68"]
+[gd_scene load_steps=5 format=3 uid="uid://dene70d1e7r68"]
 
 [ext_resource type="Script" path="res://projectile.gd" id="1_u6qai"]
 [ext_resource type="Texture2D" uid="uid://cua5j4sqt5wxv" path="res://assets/proejctile boss 1.png" id="2_xr5ea"]
