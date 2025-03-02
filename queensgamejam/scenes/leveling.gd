@@ -3,6 +3,7 @@ extends Node
 @onready var shieldNode = parent.get_node("shieldContainer")
 var shieldScene = preload("res://scenes/shield.tscn")
 @export var health : int = 0
+@export var particle : PackedScene
 var level : int = 1
 var toNextLevel : int = 3
 var levelPts : int = 0
@@ -22,6 +23,12 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func loseHp():
+	var aParticle = particle.instantiate()
+	aParticle.position.x = get_parent().position.x
+	aParticle.position.y = get_parent().position.y
+	aParticle.emitting = true
+	aParticle.modulate = Color(1, 1, 1)
+	get_tree().current_scene.add_child(aParticle)
 	if shieldCount <= 0:
 		return  # No shields to remove.
 	health -= 1
@@ -67,6 +74,7 @@ func augment():
 			augmentNum+= 1
 			pass
 		player.augment1 = true
+		$"../CanvasLayer/Label2".visible = true
 		pickedAugments.append(1)
 	elif augmentNum == 2 && !pickedAugments.has(2):
 		if pickedAugments.has(augmentNum):
@@ -74,6 +82,7 @@ func augment():
 			pass
 		player.get_parent().get_node("Line2D").queue_free()
 		player.augment2 = true
+		$"../CanvasLayer/Label".visible = true
 		pickedAugments.append(2)
 func levelUp():
 	level += 1
@@ -101,11 +110,15 @@ func _exit_tree() -> void:
 func _on_pickup_area_area_entered(area: Area2D) -> void:
 	pickUp()
 	var h = area.get_parent()
+	var aParticle = particle.instantiate()
+	aParticle.position.x = h.position.x
+	aParticle.position.y = h.position.y
+	aParticle.emitting = true
+	get_tree().current_scene.add_child(aParticle)
 	h.queue_free()
 
-
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if health == 0:
+	if health <= 0:
 		$dead.play()
 		get_parent().visible = false
 		await get_tree().create_timer(0.4).timeout

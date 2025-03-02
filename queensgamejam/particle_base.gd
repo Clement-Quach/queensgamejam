@@ -50,13 +50,13 @@ func getDirection() -> Vector2:
 
 
 func _on_area_2d_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
-	print(name)
+
 	# Get the parent of the Area2D, which should be the other CharacterBody2D
 	var other_body = area.get_parent()
 	
 	# Check if the parent is a CharacterBody2D
 	if other_body is CharacterBody2D and other_body.has_method("getMass"):
-		print(other_body.name, " ", other_body.direction)
+
 		# Access the 'value' variable from the other CharacterBody2D
 		var otherDirection = other_body.getDirection()
 		var otherMass = other_body.getMass()

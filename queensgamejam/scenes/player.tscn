@@ -1,12 +1,22 @@
-[gd_scene load_steps=11 format=3 uid="uid://w3uygut4yruj"]
+[gd_scene load_steps=15 format=3 uid="uid://w3uygut4yruj"]
 
 [ext_resource type="PackedScene" uid="uid://cmso3pdtylk4n" path="res://scenes/particleBase.tscn" id="1_mfwgv"]
 [ext_resource type="Script" path="res://scenes/leveling.gd" id="2_dpaba"]
 [ext_resource type="Texture2D" uid="uid://d4nek2wcnip5x" path="res://assets/carbon.png" id="2_txi7q"]
+[ext_resource type="PackedScene" uid="uid://6sbg6tdk13ti" path="res://scenes/splat.tscn" id="4_ihag3"]
 [ext_resource type="AudioStream" uid="uid://dfp2whe5liv8v" path="res://assets/mixkit-game-ball-tap-2073.wav" id="4_l0ram"]
 [ext_resource type="AudioStream" uid="uid://dhdm80n6gm2hl" path="res://assets/mixkit-winning-a-coin-video-game-2069.wav" id="5_7kc0m"]
 [ext_resource type="AudioStream" uid="uid://b3ek06fjgugwe" path="res://assets/mixkit-arcade-mechanical-bling-210.wav" id="6_ttfys"]
 [ext_resource type="AudioStream" uid="uid://btqqgl4depkan" path="res://assets/zap-laser-fx.wav" id="7_h3ww0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vyml2"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_pf5fp"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_t082y"]
+font_size = 12
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmkwf"]
 size = Vector2(52, 50)
@@ -19,25 +29,68 @@ radius = 37.0
 
 [node name="player" instance=ExtResource("1_mfwgv")]
 
-[node name="shieldContainer" type="Node2D" parent="." index="0"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
 
-[node name="Sprite2D" parent="." index="2"]
+[node name="Label3" type="Label" parent="CanvasLayer" index="0"]
+visible = false
+offset_left = 7.0
+offset_top = 306.0
+offset_right = 148.0
+offset_bottom = 407.0
+text = "Wildcard: Gamma Ray
+Dangerous gamma
+rays have come from
+the cosmos.
+Dodge them or get hurt."
+label_settings = SubResource("LabelSettings_vyml2")
+
+[node name="Label" type="Label" parent="CanvasLayer" index="1"]
+visible = false
+offset_left = 8.0
+offset_top = 65.0
+offset_right = 126.0
+offset_bottom = 182.0
+text = "Wildcard: WASD
+You have reached
+a stable state and 
+movements become
+easier. 
+Move with WASD"
+label_settings = SubResource("LabelSettings_pf5fp")
+
+[node name="Label2" type="Label" parent="CanvasLayer" index="2"]
+visible = false
+offset_left = 8.0
+offset_top = 192.0
+offset_right = 128.0
+offset_bottom = 303.0
+text = "Wildcard: IONIC
+Your electrons are
+electrifying you.
+Gain speed per
+electron."
+label_settings = SubResource("LabelSettings_t082y")
+
+[node name="shieldContainer" type="Node2D" parent="." index="1"]
+
+[node name="Sprite2D" parent="." index="3"]
 texture_filter = 1
 scale = Vector2(7, 7)
 texture = ExtResource("2_txi7q")
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="4"]
 shape = SubResource("RectangleShape2D_gmkwf")
 
-[node name="hurtbox" parent="." index="4"]
+[node name="hurtbox" parent="." index="5"]
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" parent="hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_hlkgd")
 
-[node name="leveling" type="Node2D" parent="." index="5"]
+[node name="leveling" type="Node2D" parent="." index="6"]
 script = ExtResource("2_dpaba")
+particle = ExtResource("4_ihag3")
 
 [node name="pickup area" type="Area2D" parent="leveling" index="0"]
 collision_layer = 0

@@ -24,3 +24,4 @@ shape = SubResource("CircleShape2D_ormad")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_egl1u")
+debug_color = Color(7.70092e-07, 0.745384, 0.86758, 0.42)

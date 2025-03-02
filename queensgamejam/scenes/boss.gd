@@ -65,7 +65,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	
 	if parent is CharacterBody2D and parent.has_method("getMass"):
 		health -= parent.getMass()
-		print(health)
+
 		$hit.play()
 		hitFlash.play("hitFlash")
 		
