@@ -10,21 +10,29 @@ size = Vector2(143, 136)
 size = Vector2(121, 103)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(1, 0)
+scale = Vector2(0.6, 0.6)
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_u6qai")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_d61fl")
 
 [node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.6, 0.6)
 collision_layer = 5
 collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(2.5, 1)
+scale = Vector2(0.6, 0.6)
 shape = SubResource("RectangleShape2D_6o1uu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)
+scale = Vector2(0.6, 0.6)
 shape = SubResource("RectangleShape2D_pyfmu")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

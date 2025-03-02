@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="1_704lm"]
 [ext_resource type="PackedScene" uid="uid://bqljjh47t4yin" path="res://scenes/hydrogen.tscn" id="2_1udnh"]
 [ext_resource type="PackedScene" uid="uid://dsely15cvyl4n" path="res://scenes/slingShot.tscn" id="3_qhxu8"]
-[ext_resource type="PackedScene" uid="uid://bqvb7ajjjro68" path="res://scenes/projectile.tscn" id="4_8r74e"]
+[ext_resource type="PackedScene" uid="uid://beq6j6jklgijo" path="res://scenes/boss.tscn" id="5_r7nro"]
 
 [node name="Collider" type="Node2D"]
 
@@ -28,11 +28,11 @@ position = Vector2(224, 220)
 collision_layer = 1
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_1udnh")]
-position = Vector2(403, 261)
+position = Vector2(39, 493)
 collision_layer = 1
 mass = 2
 
 [node name="Line2D" parent="." instance=ExtResource("3_qhxu8")]
 
-[node name="CharacterBody2D2" parent="." instance=ExtResource("4_8r74e")]
-position = Vector2(220, 365)
+[node name="boss" parent="." instance=ExtResource("5_r7nro")]
+position = Vector2(429, 72)

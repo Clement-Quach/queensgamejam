@@ -1,5 +1,5 @@
 extends CharacterBody2D
-@export var speed: Vector2
+@export var speed: float
 @export var direction: Vector2
 
 
@@ -7,10 +7,10 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if is_on_floor() || is_on_wall():
 		queue_free()
-		
+	
 	#if collision with player
 	
-	
+	velocity = direction * speed
 	move_and_slide()
 
 
