@@ -49,4 +49,5 @@ func _on_area_2d_area_shape_entered(area_rid: RID, area: Area2D, area_shape_inde
 
 
 func _on_hurtbox_area_exited(area: Area2D) -> void:
+
 	queue_free()

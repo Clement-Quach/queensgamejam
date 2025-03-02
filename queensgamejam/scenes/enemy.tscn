@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://hyccygyfmv63"]
+[gd_scene load_steps=4 format=3 uid="uid://hyccygyfmv63"]
 
+[ext_resource type="Script" path="res://scenes/enemy.gd" id="1_4jodb"]
 [ext_resource type="Texture2D" uid="uid://bafrjxceu8j7u" path="res://assets/antimatter.png" id="1_ilx3q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mutdx"]
-size = Vector2(4.66667, 4.66667)
+size = Vector2(14.6667, 14.6667)
 
-[node name="enemy" type="Sprite2D"]
+[node name="enemy" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_4jodb")
+speed = 100.0
+
+[node name="Node2D" type="Sprite2D" parent="."]
 scale = Vector2(3, 3)
 texture = ExtResource("1_ilx3q")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_mutdx")

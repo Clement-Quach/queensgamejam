@@ -5,20 +5,78 @@ var spawn_interval_max = 4.0
 @onready var playerLevel = $player/leveling
 @onready var levelLabel = $level/Label
 @onready var levelBar = $level/ProgressBar
-# Called when the node enters the scene tree for the first time.
+@onready var enemy_scene = preload("res://scenes/enemy.tscn")
+@export var initial_enemy_count: int = 3       # starting number of enemies per wave
+@export var enemy_wave_increment: int = 2      # additional enemies per wave
+@export var spawn_delay: float = 0.5           # delay between spawning each enemy
+@export var wave_delay: float = 5.0
+var current_wave: int = 1
+var current_enemy_count: int = initial_enemy_count
+
 func _ready() -> void:
 	start_spawning()
-
+	start_waves()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	levelLabel.text = str(playerLevel.level)
 	fillBar()
 
+func update_progress_bar(target_value: float, duration: float) -> void:
+	# Create a tween that will smoothly interpolate the progress bar's value.
+	var tween = get_tree().create_tween()
+	tween.tween_property(levelBar, "value", target_value, duration)
+
+
 func fillBar():
 	levelBar.max_value = playerLevel.toNextLevel
-	levelBar.value = playerLevel.levelPts
+	update_progress_bar(playerLevel.levelPts, 0.25)
+
 	
+func spawn_waves() -> void:
+	while true:
+		print("Starting wave %d with %d enemies" % [current_wave, current_enemy_count])
+		# Spawn enemies for the current wave
+		for i in range(current_enemy_count):
+			spawn_enemy()
+			await get_tree().create_timer(spawn_delay).timeout
+		# Wait before starting the next wave
+		await get_tree().create_timer(wave_delay).timeout
+		# Increase the wave and ramp up the enemy count
+		current_wave += 1
+		current_enemy_count += enemy_wave_increment
+
+############################### ENEMY SPAWNING #####################################################
+
+func start_waves() -> void:
+	# Use an infinite loop to continuously spawn waves
+	spawn_waves()
+	
+func spawn_enemy() -> void:
+	var enemy_instance = enemy_scene.instantiate()
+	enemy_instance.position = get_spawn_position()
+	add_child(enemy_instance)
+
+func get_spawn_position() -> Vector2:
+	var viewport_rect = get_viewport().get_visible_rect()
+	var pos = Vector2.ZERO
+	var side = randi() % 4  # 0=left, 1=right, 2=top, 3=bottom
+	match side:
+		0:  # Left side
+			pos.x = viewport_rect.position.x - 50
+			pos.y = randf_range(viewport_rect.position.y, viewport_rect.position.y + viewport_rect.size.y)
+		1:  # Right side
+			pos.x = viewport_rect.position.x + viewport_rect.size.x + 50
+			pos.y = randf_range(viewport_rect.position.y, viewport_rect.position.y + viewport_rect.size.y)
+		2:  # Top side
+			pos.y = viewport_rect.position.y - 50
+			pos.x = randf_range(viewport_rect.position.x, viewport_rect.position.x + viewport_rect.size.x)
+		3:  # Bottom side
+			pos.y = viewport_rect.position.y + viewport_rect.size.y + 50
+			pos.x = randf_range(viewport_rect.position.x, viewport_rect.position.x + viewport_rect.size.x)
+	return pos
+####################################################################################################
+
 ################################## SPAWNING LEVELING ORBS ##########################################
 func spawnLevelOrb():
 	var s = levelUp.instantiate()
