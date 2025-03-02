@@ -14,6 +14,7 @@ var s2 = 2
 var s3 = 2
 var s4 = 2
 var pickedAugments = []
+var totalAugmentNum = 2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -53,19 +54,26 @@ var rng = RandomNumberGenerator.new()
 func augment():
 	var player = get_parent()
 	var augmentNum = rng.randi_range(1,2)
+	augmentNum =3
 	if augmentNum == 1:
 		if pickedAugments.has(augmentNum):
-			augmentNum+= 1
-			pass
-		player.augment1 = true
-		pickedAugments.append(1)
-	elif augmentNum == 2 && !pickedAugments.has(2):
+			augmentNum= (augmentNum+ 1)%totalAugmentNum
+		if augmentNum == 1:
+			player.augment1 = true
+			pickedAugments.append(1)
+	if augmentNum == 2:
 		if pickedAugments.has(augmentNum):
-			augmentNum+= 1
-			pass
-		player.get_parent().get_node("Line2D").queue_free()
-		player.augment2 = true
-		pickedAugments.append(2)
+			augmentNum= (augmentNum+ 1)%totalAugmentNum
+		if augmentNum == 2:
+			player.get_parent().get_node("Line2D").queue_free()
+			player.augment2 = true
+			pickedAugments.append(2)
+	if augmentNum == 3:
+		if pickedAugments.has(augmentNum):
+			augmentNum= (augmentNum+ 1)%totalAugmentNum
+		if augmentNum == 3:
+			player.get_parent().spawn_lasers()
+			pickedAugments.append(3)
 func levelUp():
 	level += 1
 	toNextLevel = round(toNextLevel * 1.5)

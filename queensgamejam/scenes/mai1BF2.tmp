@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1r181tlg2520"]
+[gd_scene load_steps=10 format=3 uid="uid://d1r181tlg2520"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_2h8js"]
 [ext_resource type="Script" path="res://scenes/timer.gd" id="1_nw5uv"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://w3uygut4yruj" path="res://scenes/player.tscn" id="2_f2vdu"]
 [ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="3_y7k7s"]
 [ext_resource type="PackedScene" uid="uid://drwoipyt7482k" path="res://scenes/slingShot.tscn" id="4_o7whv"]
+[ext_resource type="PackedScene" uid="uid://cimvhc70pa66l" path="res://scenes/laser.tscn" id="7_ur7gh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1401g"]
 font_size = 20
@@ -95,5 +96,7 @@ environment = SubResource("Environment_0ol5u")
 
 [node name="bossTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="laser" parent="." instance=ExtResource("7_ur7gh")]
 
 [connection signal="timeout" from="timer/Timer" to="timer" method="_on_timer_timeout"]

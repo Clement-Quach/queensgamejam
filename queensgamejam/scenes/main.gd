@@ -10,17 +10,21 @@ var spawn_interval_max = 4.0
 @export var enemy_wave_increment: int = 2      # additional enemies per wave
 @export var spawn_delay: float = 0.5           # delay between spawning each enemy
 @export var wave_delay: float = 5.0
+@export var laser_despawn_delay = 1
+@export var laser_delay = .7
 var current_wave: int = 1
 var current_enemy_count: int = initial_enemy_count
 @export var boss1: PackedScene 
 var boss1Spawned = false
-
+@onready var laser_scene = preload("res://scenes/laser.tscn")
+var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	start_spawning()
 	start_waves()
-	$bossTimer.timeout.connect(uraniumBoss)
-	$bossTimer.start()
+	
+	#$bossTimer.timeout.connect(uraniumBoss)
+	#$bossTimer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -37,7 +41,44 @@ func fillBar():
 	levelBar.max_value = playerLevel.toNextLevel
 	update_progress_bar(playerLevel.levelPts, 0.25)
 
-	
+func spawn_lasers() -> void:
+	while true:
+		var laser_instance = laser_scene.instantiate()
+		var side = rng.randi() % 4
+		laser_instance.position = get_laser_spawn_position(side)
+		match side:
+			0:
+				laser_instance.rotation = rng.randf_range(-PI/4,PI/4)
+			1:
+				laser_instance.rotation = rng.randf_range(PI/4,3*PI/4)
+			2:
+				laser_instance.rotation = rng.randf_range(PI,2*PI)
+			3:
+				laser_instance.rotation = rng.randf_range(0,PI)
+		add_child(laser_instance)
+		await get_tree().create_timer(laser_despawn_delay).timeout
+		laser_instance.queue_free()
+		await get_tree().create_timer(laser_delay).timeout
+		
+
+func get_laser_spawn_position(side) -> Vector2:
+	var viewport_rect = get_viewport().get_visible_rect()
+	var pos = Vector2.ZERO
+# 0=left, 1=right, 2=top, 3=bottom
+	match side:
+		0:  # Left side
+			pos.x = viewport_rect.position.x - 50
+			pos.y = randf_range(viewport_rect.position.y, viewport_rect.position.y + viewport_rect.size.y)
+		1:  # Right side
+			pos.x = viewport_rect.position.x + viewport_rect.size.x + 50
+			pos.y = randf_range(viewport_rect.position.y, viewport_rect.position.y + viewport_rect.size.y)
+		2:  # Top side
+			pos.y = viewport_rect.position.y - 50
+			pos.x = randf_range(viewport_rect.position.x, viewport_rect.position.x + viewport_rect.size.x)
+		3:  # Bottom side
+			pos.y = viewport_rect.position.y + viewport_rect.size.y + 50
+			pos.x = randf_range(viewport_rect.position.x, viewport_rect.position.x + viewport_rect.size.x)
+	return pos
 func spawn_waves() -> void:
 	while true:
 		print("Starting wave %d with %d enemies" % [current_wave, current_enemy_count])

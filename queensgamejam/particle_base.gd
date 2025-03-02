@@ -21,7 +21,6 @@ func _physics_process(delta: float) -> void:
 	direction.x = direction.x * friction
 	direction.y = direction.y * friction
 	if augment1 == true:
-		print(SPEED, "\n",get_node("leveling").shieldCount)
 		var count = get_node("leveling").shieldCount
 		SPEED =log(count)/log(10) + 3
 	if augment2== true:
