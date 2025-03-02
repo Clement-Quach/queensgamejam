@@ -105,6 +105,7 @@ func start_spawning():
 #boss spawning
 func uraniumBoss() -> void:
 	if boss1 and !boss1Spawned:
+		$bossTimer.paused =true
 		var boss = boss1.instantiate() as CharacterBody2D
 		if boss:
 			boss.position = Vector2(400,75)
