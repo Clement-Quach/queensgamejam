@@ -22,9 +22,16 @@ func _process(delta: float) -> void:
 	levelLabel.text = str(playerLevel.level)
 	fillBar()
 
+func update_progress_bar(target_value: float, duration: float) -> void:
+	# Create a tween that will smoothly interpolate the progress bar's value.
+	var tween = get_tree().create_tween()
+	tween.tween_property(levelBar, "value", target_value, duration)
+
+
 func fillBar():
 	levelBar.max_value = playerLevel.toNextLevel
-	levelBar.value = playerLevel.levelPts
+	update_progress_bar(playerLevel.levelPts, 0.25)
+
 	
 func spawn_waves() -> void:
 	while true:
