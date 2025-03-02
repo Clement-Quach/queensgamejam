@@ -92,7 +92,13 @@ func levelUp():
 	if level%3==0:
 		augment()
 		
-	
+func takeDMG():
+	if health == 0:
+		$dead.play()
+		get_parent().visible = false
+		await get_tree().create_timer(0.4).timeout
+		queue_free()
+	loseHp()
 func pickUp():
 	if levelPts == toNextLevel:
 		levelUp()
@@ -113,9 +119,4 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if health == 0:
-		$dead.play()
-		get_parent().visible = false
-		await get_tree().create_timer(0.4).timeout
-		queue_free()
-	loseHp()
+	takeDMG()
