@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_2h8js"]
 [ext_resource type="Script" path="res://scenes/timer.gd" id="1_nw5uv"]
+[ext_resource type="PackedScene" uid="uid://ku5pf81ouy56" path="res://scenes/boss.tscn" id="2_884pj"]
 [ext_resource type="PackedScene" uid="uid://w3uygut4yruj" path="res://scenes/player.tscn" id="2_f2vdu"]
 [ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="3_y7k7s"]
 [ext_resource type="PackedScene" uid="uid://drwoipyt7482k" path="res://scenes/slingShot.tscn" id="4_o7whv"]
-[ext_resource type="PackedScene" uid="uid://caupn4y00bnlf" path="res://scenes/worm_boss.tscn" id="6_q6ggl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1401g"]
 font_size = 20
@@ -19,7 +19,7 @@ glow_blend_mode = 0
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_2h8js")
-wave_delay = 8.0
+boss1 = ExtResource("2_884pj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -99.0
@@ -94,6 +94,9 @@ show_percentage = false
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0ol5u")
 
-[node name="wormBoss" parent="." instance=ExtResource("6_q6ggl")]
+[node name="bossTimer2" type="Timer" parent="."]
+
+[node name="bossTimer" type="Timer" parent="."]
+wait_time = 60.0
 
 [connection signal="timeout" from="timer/Timer" to="timer" method="_on_timer_timeout"]

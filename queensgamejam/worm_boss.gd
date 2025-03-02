@@ -3,7 +3,6 @@ extends Node2D
 # Instead of exporting packed scenes, we reference our template nodes.
 @onready var invuln_segment_template = $segment
 @onready var dmg_segment_template = $segmentHurt
-
 @export var segment_count: int = 5       # Total segments
 @export var segment_distance: float = 70.0 # Distance between segments
 @export var speed: float = 100.0           # Movement speed
@@ -11,6 +10,11 @@ extends Node2D
 @export var turn_speed: float = 2.0        # How fast the worm rotates (radians per second)
 @export var vulnerability_interval: float = 3.0  # Vulnerable segment switch interval
 @export var health: int = 20             # Boss health
+@onready var levelUp = preload("res://scenes/level_up_orb.tscn")
+@onready var healthLabel = $CanvasLayer/health/Label
+@onready var healthBar = $CanvasLayer/health/ProgressBar
+@onready var maxHealth = health
+var dead = false
 
 var screen_width: float = 454.0
 var screen_height: float = 255.0
@@ -35,7 +39,7 @@ func _ready() -> void:
 	# Hide the template nodes (they are only for duplication)
 	invuln_segment_template.hide()
 	dmg_segment_template.hide()
-	
+	healthLabel.text = "PEPTIDE BONDS"	
 	randomize()
 	# Initialize angles (assuming starting direction is to the right)
 	current_angle = 0.0
@@ -55,6 +59,14 @@ func _ready() -> void:
 	choose_new_vulnerable()
 
 func _process(delta: float) -> void:
+	fillBar()
+	if health <= 0 and dead == false:
+		dead = true
+		$death.play()
+		for i in 50:
+			spawnLevelOrb()
+		await get_tree().create_timer(0.32).timeout
+		queue_free()
 	elapsed_time += delta
 	
 	# Smoothly interpolate current_angle toward target_angle.
@@ -147,22 +159,27 @@ func choose_new_vulnerable() -> void:
 
 func take_damage(amount: int) -> void:
 	health -= amount
-	flash_white()
-	# Add death logic if health <= 0
-
-func flash_white() -> void:
-	var tween = get_tree().create_tween()
-	for seg in segments:
-		# Get the Sprite2D child node.
-		var sprite = seg.get_node("Sprite2D")
-		# Store the sprite's original modulate.
-		var original_color = sprite.modulate
-		# Immediately set the sprite to white.
-		sprite.modulate = Color(1, 1, 1)
-		# Tween back to the original color over 0.2 seconds.
-		tween.tween_property(sprite, "modulate", original_color, 0.2)
+	$hit.play()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	take_damage(10)
-	print(health)
+	take_damage(1)
+	print("HIt")
+
+func spawnLevelOrb():
+	var s = levelUp.instantiate()
+	get_parent().add_child(s)
+	s.scale.x = 0.25
+	s.scale.y = 0.25
+	s.position.x = randi_range(-100,100 ) +self.position.x
+	s.position.y = randi_range(0, 100) + self.position.y
+
+func update_progress_bar(target_value: float, duration: float) -> void:
+	# Create a tween that will smoothly interpolate the progress bar's value.
+	var tween = get_tree().create_tween()
+	tween.tween_property(healthBar, "value", target_value, duration)
+
+
+func fillBar():
+	healthBar.max_value = maxHealth
+	update_progress_bar(health, 0.25)

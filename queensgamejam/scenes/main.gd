@@ -12,10 +12,20 @@ var spawn_interval_max = 4.0
 @export var wave_delay: float = 5.0
 var current_wave: int = 1
 var current_enemy_count: int = initial_enemy_count
+@export var boss1: PackedScene 
+var boss1Spawned = false
+
+@onready var boss2 = preload("res://scenes/worm_boss.tscn")
+var boss2Spawned = false
+
 
 func _ready() -> void:
 	start_spawning()
 	start_waves()
+	$bossTimer.timeout.connect(uraniumBoss)
+	$bossTimer.start()
+	$bossTimer2.timeout.connect(wormBoss)
+	$bossTimer2.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -95,3 +105,24 @@ func start_spawning():
 		spawn_interval_min = max(0.5, spawn_interval_min - 0.05)
 		spawn_interval_max = max(1.0, spawn_interval_max - 0.05)
 ####################################################################################################
+
+func wormBoss() -> void:
+	if boss2 and !boss2Spawned:
+		$bossTimer2.paused =true
+		var bossA = boss2.instantiate() as Node2D
+		print(bossA)
+		if bossA:
+			print("gyat")
+			# Set the position of the spawned object near the spawner
+			add_child(bossA)  # Add to the same parent scene
+
+#boss spawning
+func uraniumBoss() -> void:
+	if boss1 and !boss1Spawned:
+		$bossTimer.paused =true
+		var boss = boss1.instantiate() as CharacterBody2D
+		print(boss)
+		if boss:
+			boss.position = Vector2(454,125)
+			# Set the position of the spawned object near the spawner
+			add_child(boss)  # Add to the same parent scene
