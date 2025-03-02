@@ -46,6 +46,8 @@ func spawn_waves() -> void:
 		current_wave += 1
 		current_enemy_count += enemy_wave_increment
 
+
+
 ############################### ENEMY SPAWNING #####################################################
 
 func start_waves() -> void:
