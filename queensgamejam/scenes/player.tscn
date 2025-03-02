@@ -1,23 +1,27 @@
-[gd_scene load_steps=9 format=3 uid="uid://w3uygut4yruj"]
+[gd_scene load_steps=11 format=3 uid="uid://w3uygut4yruj"]
 
 [ext_resource type="PackedScene" uid="uid://cmso3pdtylk4n" path="res://scenes/particleBase.tscn" id="1_mfwgv"]
 [ext_resource type="Script" path="res://scenes/leveling.gd" id="2_dpaba"]
 [ext_resource type="Texture2D" uid="uid://d4nek2wcnip5x" path="res://assets/carbon.png" id="2_txi7q"]
 [ext_resource type="AudioStream" uid="uid://dfp2whe5liv8v" path="res://assets/mixkit-game-ball-tap-2073.wav" id="4_l0ram"]
 [ext_resource type="AudioStream" uid="uid://dhdm80n6gm2hl" path="res://assets/mixkit-winning-a-coin-video-game-2069.wav" id="5_7kc0m"]
+[ext_resource type="AudioStream" uid="uid://b3ek06fjgugwe" path="res://assets/mixkit-arcade-mechanical-bling-210.wav" id="6_ttfys"]
+[ext_resource type="AudioStream" uid="uid://btqqgl4depkan" path="res://assets/zap-laser-fx.wav" id="7_h3ww0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmkwf"]
 size = Vector2(52, 50)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_250ny"]
-radius = 37.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlkgd"]
 size = Vector2(52, 52)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_250ny"]
+radius = 37.0
+
 [node name="player" instance=ExtResource("1_mfwgv")]
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="shieldContainer" type="Node2D" parent="." index="0"]
+
+[node name="Sprite2D" parent="." index="2"]
 texture_filter = 1
 scale = Vector2(7, 7)
 texture = ExtResource("2_txi7q")
@@ -25,7 +29,14 @@ texture = ExtResource("2_txi7q")
 [node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("RectangleShape2D_gmkwf")
 
-[node name="leveling" type="Node2D" parent="." index="4"]
+[node name="hurtbox" parent="." index="4"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_hlkgd")
+
+[node name="leveling" type="Node2D" parent="." index="5"]
 script = ExtResource("2_dpaba")
 
 [node name="pickup area" type="Area2D" parent="leveling" index="0"]
@@ -43,12 +54,13 @@ stream = ExtResource("4_l0ram")
 stream = ExtResource("5_7kc0m")
 volume_db = -8.83
 
-[node name="hurtbox" parent="." index="5"]
-collision_layer = 0
-collision_mask = 4
+[node name="dead" type="AudioStreamPlayer" parent="leveling" index="3"]
+stream = ExtResource("6_ttfys")
+volume_db = -3.925
 
-[node name="CollisionShape2D" parent="hurtbox" index="0"]
-shape = SubResource("RectangleShape2D_hlkgd")
+[node name="loseShell" type="AudioStreamPlayer" parent="leveling" index="4"]
+stream = ExtResource("7_h3ww0")
+volume_db = -8.831
 
+[connection signal="area_entered" from="hurtbox" to="leveling" method="_on_hurtbox_area_entered"]
 [connection signal="area_entered" from="leveling/pickup area" to="leveling" method="_on_pickup_area_area_entered"]
-[connection signal="area_exited" from="hurtbox" to="." method="_on_hurtbox_area_exited"]

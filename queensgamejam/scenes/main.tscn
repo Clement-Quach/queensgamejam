@@ -95,6 +95,7 @@ show_percentage = false
 environment = SubResource("Environment_0ol5u")
 
 [node name="bossTimer2" type="Timer" parent="."]
+wait_time = 120.0
 
 [node name="bossTimer" type="Timer" parent="."]
 wait_time = 60.0
