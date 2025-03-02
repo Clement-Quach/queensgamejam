@@ -32,6 +32,8 @@ func fillBar():
 	levelBar.max_value = playerLevel.toNextLevel
 	update_progress_bar(playerLevel.levelPts, 0.25)
 
+
+############################### ENEMY SPAWNING #####################################################
 	
 func spawn_waves() -> void:
 	while true:
@@ -44,9 +46,8 @@ func spawn_waves() -> void:
 		await get_tree().create_timer(wave_delay).timeout
 		# Increase the wave and ramp up the enemy count
 		current_wave += 1
-		current_enemy_count += enemy_wave_increment
-
-############################### ENEMY SPAWNING #####################################################
+		if current_wave % 2 == 0:
+			current_enemy_count += enemy_wave_increment
 
 func start_waves() -> void:
 	# Use an infinite loop to continuously spawn waves

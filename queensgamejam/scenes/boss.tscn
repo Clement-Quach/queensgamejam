@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ku5pf81ouy56"]
 
 [ext_resource type="Script" path="res://scenes/boss.gd" id="1_dua5e"]
-[ext_resource type="PackedScene" path="res://scenes/projectile.tscn" id="2_5hyw2"]
+[ext_resource type="PackedScene" uid="uid://dene70d1e7r68" path="res://scenes/projectile.tscn" id="2_5hyw2"]
 [ext_resource type="Texture2D" uid="uid://tentn8g1klot" path="res://assets/uranium.png" id="3_l4ob5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hnhtb"]

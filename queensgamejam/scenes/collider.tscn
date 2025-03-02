@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bdeto3dpfhttl" path="res://scenes/wall.tscn" id="1_704lm"]
 [ext_resource type="PackedScene" uid="uid://bqljjh47t4yin" path="res://scenes/hydrogen.tscn" id="2_1udnh"]
-[ext_resource type="PackedScene" uid="uid://dsely15cvyl4n" path="res://scenes/slingShot.tscn" id="3_qhxu8"]
-[ext_resource type="PackedScene" uid="uid://beq6j6jklgijo" path="res://scenes/boss.tscn" id="5_r7nro"]
+[ext_resource type="PackedScene" uid="uid://drwoipyt7482k" path="res://scenes/slingShot.tscn" id="3_qhxu8"]
+[ext_resource type="PackedScene" uid="uid://caupn4y00bnlf" path="res://scenes/worm_boss.tscn" id="4_6pgqe"]
 
 [node name="Collider" type="Node2D"]
 
@@ -34,5 +34,5 @@ mass = 2
 
 [node name="Line2D" parent="." instance=ExtResource("3_qhxu8")]
 
-[node name="boss" parent="." instance=ExtResource("5_r7nro")]
-position = Vector2(429, 72)
+[node name="wormBoss" parent="." instance=ExtResource("4_6pgqe")]
+position = Vector2(280, 112)
