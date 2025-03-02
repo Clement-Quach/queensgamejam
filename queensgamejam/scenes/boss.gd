@@ -2,10 +2,13 @@ extends CharacterBody2D
 
 @onready var levelUp = preload("res://scenes/level_up_orb.tscn")
 @export var health: int
+@onready var maxHealth = health
 @export var spawn_scene: PackedScene  # Assign the scene you want to spawn in the Inspector
 @export var player:CharacterBody2D
 @export var cooldown:bool
 @onready var hitFlash = $hitFlash
+@onready var healthLabel = $health/Label
+@onready var healthBar = $health/ProgressBar
 
 func _ready() -> void:
 	# Example: Spawn every 3 seconds
@@ -23,6 +26,8 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	healthLabel.text = "uranium 248"
+	fillBar()
 	#on death
 	if health <= 0:
 		for i in 50:
@@ -79,3 +84,13 @@ func spawn_character(dir:Vector2, location:Vector2, speed:float) -> void:
 			new_character.speed = speed
 			get_parent().add_child(new_character)  # Add to the same parent scene
 			
+
+func update_progress_bar(target_value: float, duration: float) -> void:
+	# Create a tween that will smoothly interpolate the progress bar's value.
+	var tween = get_tree().create_tween()
+	tween.tween_property(healthBar, "value", target_value, duration)
+
+
+func fillBar():
+	healthBar.max_value = maxHealth
+	update_progress_bar(health, 0.25)
