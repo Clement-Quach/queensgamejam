@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://6nlutcowotaw"]
+
+[ext_resource type="Texture2D" uid="uid://bic0dpuaml4ul" path="res://assets/menu.png" id="1_x5hkw"]
+[ext_resource type="Script" path="res://main_menu.gd" id="1_youtg"]
+
+[node name="mainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_youtg")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(9, 9)
+texture = ExtResource("1_x5hkw")
+
+[node name="play" type="Button" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 306.0
+offset_top = 225.0
+offset_right = 604.0
+offset_bottom = 343.0
+
+[node name="quit" type="Button" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 306.0
+offset_top = 370.0
+offset_right = 603.0
+offset_bottom = 486.0
+
+[connection signal="button_down" from="play" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="quit" to="." method="_on_quit_button_down"]
