@@ -18,6 +18,7 @@ var s2 = 2
 var s3 = 2
 var s4 = 2
 var pickedAugments = []
+var totalAugmentNum = 2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -69,21 +70,29 @@ var rng = RandomNumberGenerator.new()
 func augment():
 	var player = get_parent()
 	var augmentNum = rng.randi_range(1,2)
+	augmentNum =3
 	if augmentNum == 1:
 		if pickedAugments.has(augmentNum):
-			augmentNum+= 1
-			pass
-		player.augment1 = true
-		$"../CanvasLayer/Label2".visible = true
-		pickedAugments.append(1)
-	elif augmentNum == 2 && !pickedAugments.has(2):
+			augmentNum= (augmentNum+ 1)%totalAugmentNum
+		if augmentNum == 1:
+			player.augment1 = true
+			$"../CanvasLayer/Label2".visible = true
+			pickedAugments.append(1)
+	if augmentNum == 2:
 		if pickedAugments.has(augmentNum):
-			augmentNum+= 1
-			pass
-		player.get_parent().get_node("Line2D").queue_free()
-		player.augment2 = true
-		$"../CanvasLayer/Label".visible = true
-		pickedAugments.append(2)
+			augmentNum= (augmentNum+ 1)%totalAugmentNum
+		if augmentNum == 2:
+			player.get_parent().get_node("Line2D").queue_free()
+			player.augment2 = true
+			$"../CanvasLayer/Label".visible = true
+			pickedAugments.append(2)
+	if augmentNum == 3:
+		if pickedAugments.has(augmentNum):
+			augmentNum= (augmentNum+ 1)%totalAugmentNum
+		if augmentNum == 3:
+			player.get_parent().spawn_lasers()
+			$"../CanvasLayer/Label3".visible = true
+			pickedAugments.append(3)
 func levelUp():
 	level += 1
 	health += 1
@@ -93,7 +102,13 @@ func levelUp():
 	if level%3==0:
 		augment()
 		
-	
+func takeDMG():
+	if health == 0:
+		$dead.play()
+		get_parent().visible = false
+		await get_tree().create_timer(0.4).timeout
+		queue_free()
+	loseHp()
 func pickUp():
 	if levelPts == toNextLevel:
 		levelUp()
@@ -118,9 +133,4 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 	h.queue_free()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if health <= 0:
-		$dead.play()
-		get_parent().visible = false
-		await get_tree().create_timer(0.4).timeout
-		queue_free()
-	loseHp()
+	takeDMG()
